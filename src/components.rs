@@ -1,12 +1,12 @@
 use crate::Message;
-use iced::Theme;
+use iced::{Fill, Theme};
 use iced::alignment::Horizontal;
 use iced::border;
 use iced::overlay::menu;
 use iced::widget::{container, text, text_input};
 
 pub fn heading(str: &str) -> text::Text<'_> {
-    text(str).size(18).center()
+    text(str).size(18).center().width(Fill)
 }
 
 pub fn centered_column(str: String) -> container::Container<'static, Message> {
