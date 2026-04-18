@@ -77,15 +77,13 @@ impl State {
             .chosen
             .iter()
             .flatten()
-            .map(|tenet| tenet.associated_practices())
-            .flatten()
+            .flat_map(|tenet| tenet.associated_practices())
             .collect();
         let full_limited: HashSet<_> = self
             .chosen
             .iter()
             .flatten()
-            .map(|tenet| tenet.limited_practices())
-            .flatten()
+            .flat_map(|tenet| tenet.limited_practices())
             .collect();
 
         self.associated_practices = &full_associated - &full_limited;
@@ -261,7 +259,6 @@ impl State {
                 } else {
                     components::heading("Pick a Metaphysical, Personal, and Ascension tenet")
                         .width(Fill)
-                        .center()
                         .into()
                 }
             ]
