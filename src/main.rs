@@ -234,4 +234,15 @@ impl State {
         .into()
     }
 }
+
 struct TenetParameter<'a>(usize, &'a str, fn(Tenet) -> Message, Message);
+
+fn practice_string(practice_set: &HashSet<Practice>) -> String {
+    let mut practice_vector = practice_set
+        .iter()
+        .map(|practice| practice.to_string())
+        .collect::<Vec<String>>();
+    practice_vector.sort();
+
+    practice_vector.join("\n")
+}
