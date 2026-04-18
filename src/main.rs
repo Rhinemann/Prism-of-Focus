@@ -5,21 +5,20 @@ mod focus;
 
 use crate::focus::{Practice, Tenet};
 use iced::widget::{column, combo_box, grid, scrollable, Column};
-use iced::Element;
-use iced::Length::{Fill, Shrink};
+use iced::{window, Element, Shrink, Size};
 use std::collections::HashSet;
 
 pub fn main() -> iced::Result {
-    let mut settings = iced::window::Settings::default();
-    settings.max_size = Some(iced::Size::new(500f32, 0f32));
-    settings.size = iced::Size::new(500f32, 500f32);
+    let mut window_settings = window::Settings::default();
+    window_settings.min_size = Some(Size::new(390f32, 400f32));
+    window_settings.size = Size::new(500f32, 500f32);
     iced::application(State::new, State::update, State::view)
-        .window(settings)
+        .window(window_settings)
         .title("Prism of Focus")
         .run()
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub enum Message {
     MetaphysicalSelected(Tenet),
     PersonalSelected(Tenet),
@@ -46,7 +45,7 @@ struct State {
 
 impl State {
     pub fn new() -> Self {
-        Self {
+        let mut res = Self {
             associated_practices: HashSet::new(),
             limited_practices: HashSet::new(),
             chosen: [None; 7],
@@ -59,7 +58,11 @@ impl State {
                 combo_box::State::new(Tenet::OPENNESS.to_vec()),
                 combo_box::State::new(Tenet::AFTERLIFE.to_vec()),
             ],
-        }
+        };
+
+        res.update_practices();
+
+        res
     }
 
     const TENET_COMBO_PARAMETERS: [TenetParameter<'_>; 7] = [
@@ -198,23 +201,23 @@ impl State {
             None
         };
 
-        let mut tenet_grid = Column::new().spacing(15).height(Shrink);
-
-        for parameters in Self::TENET_COMBO_PARAMETERS {
-            tenet_grid = tenet_grid.push(
+        let tenet_grid =
+            Column::with_children(Self::TENET_COMBO_PARAMETERS.iter().map(|parameter| {
                 combo_box(
-                    &self.tenet_options[parameters.0],
-                    parameters.1,
-                    self.chosen[parameters.0].as_ref(),
-                    parameters.2,
+                    &self.tenet_options[parameter.0],
+                    parameter.1,
+                    self.chosen[parameter.0].as_ref(),
+                    parameter.2,
                 )
                 .size(18)
                 .padding([5, 15])
                 .input_style(components::combo_box_input_style)
                 .menu_style(components::combo_box_menu_style)
-                .on_open(parameters.3),
-            );
-        }
+                .on_open(parameter.3)
+                .into()
+            }))
+            .spacing(15)
+            .height(Shrink);
 
         scrollable(
             column![
@@ -222,9 +225,7 @@ impl State {
                 if let Some(grid) = practice_grid {
                     Element::from(grid)
                 } else {
-                    components::heading("Pick a Metaphysical, Personal, and Ascension tenet")
-                        .width(Fill)
-                        .into()
+                    components::heading("Pick a Metaphysical, Personal, and Ascension tenet").into()
                 }
             ]
             .spacing(15)
