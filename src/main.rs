@@ -5,13 +5,16 @@ use iced::alignment::Horizontal;
 use iced::border::Radius;
 use iced::overlay::menu;
 use iced::widget::{column, combo_box, container, grid, scrollable, text, text_input};
-use iced::Element;
 use iced::Length::{Fill, Shrink};
-use iced::Theme;
+use iced::{Element, Theme};
 use std::collections::HashSet;
 
 pub fn main() -> iced::Result {
+    let mut settings = iced::window::Settings::default();
+    settings.max_size = Some(iced::Size::new(500f32, 0f32));
+    settings.size = iced::Size::new(500f32, 500f32);
     iced::application(State::new, State::update, State::view)
+        .window(settings)
         .title("Prism of Focus")
         .run()
 }
@@ -25,6 +28,13 @@ enum Message {
     EpistemologySelected(Tenet),
     OpennessSelected(Tenet),
     AfterlifeSelected(Tenet),
+    MetaphysicalOpen,
+    PersonalOpen,
+    AscensionOpen,
+    RoleOpen,
+    EpistemologyOpen,
+    OpennessOpen,
+    AfterlifeOpen,
 }
 
 struct State {
@@ -112,12 +122,47 @@ impl State {
                 self.chosen[6] = Some(tenet);
                 self.update_practices()
             }
+            Message::MetaphysicalOpen => {
+                self.chosen[0] = None;
+                self.update_practices()
+            }
+            Message::PersonalOpen => {
+                self.chosen[1] = None;
+                self.update_practices()
+            }
+            Message::AscensionOpen => {
+                self.chosen[2] = None;
+                self.update_practices()
+            }
+            Message::RoleOpen => {
+                self.chosen[3] = None;
+                self.update_practices()
+            }
+            Message::EpistemologyOpen => {
+                self.chosen[4] = None;
+                self.update_practices()
+            }
+            Message::OpennessOpen => {
+                self.chosen[5] = None;
+                self.update_practices()
+            }
+            Message::AfterlifeOpen => {
+                self.chosen[6] = None;
+                self.update_practices()
+            }
         }
     }
 
     fn combo_box_menu_style(theme: &Theme) -> menu::Style {
         let mut style = menu::default(theme);
-        style.border.radius = Radius::new(10);
+        style.border.radius = Radius::new(15);
+
+        style
+    }
+
+    fn combo_box_input_style(theme: &Theme, status: text_input::Status) -> text_input::Style {
+        let mut style = text_input::default(theme, status);
+        style.border.radius = Radius::new(15);
 
         style
     }
@@ -126,8 +171,8 @@ impl State {
         let practice_grid = if self.chosen[0..3].iter().all(|option| option.is_some()) {
             Some(
                 grid!(
-                    text("Associated Practices").center(),
-                    text("Limited Practices").center(),
+                    text("Associated Practices").size(18).center(),
+                    text("Limited Practices").size(18).center(),
                     container(text(Self::practice_string(&self.associated_practices)))
                         .align_x(Horizontal::Center),
                     container(text(Self::practice_string(&self.limited_practices)))
@@ -142,66 +187,87 @@ impl State {
         };
 
         let tenet_grid = column![
-            // text("Metaphysical Tenet").width(Length::Shrink),
             combo_box(
                 &self.tenet_options[0],
                 "Metaphysical Tenet",
                 self.chosen[0].as_ref(),
                 Message::MetaphysicalSelected
             )
-            .input_style(|theme, status| {
-                let mut style = text_input::default(theme, status);
-                style.border.radius = Radius::new(10);
-
-                style
-            })
-            .menu_style(Self::combo_box_menu_style),
-            // text("Personal Tenet").width(Length::Shrink),
+            .size(18)
+            .padding([5, 15])
+            .input_style(Self::combo_box_input_style)
+            .menu_style(Self::combo_box_menu_style)
+            .on_open(Message::MetaphysicalOpen),
             combo_box(
                 &self.tenet_options[1],
                 "Personal Tenet",
                 self.chosen[1].as_ref(),
                 Message::PersonalSelected
-            ),
-            // text("Ascension Tenet").width(Length::Shrink),
+            )
+            .size(18)
+            .padding([5, 15])
+            .input_style(Self::combo_box_input_style)
+            .menu_style(Self::combo_box_menu_style)
+            .on_open(Message::PersonalOpen),
             combo_box(
                 &self.tenet_options[2],
                 "Ascension Tenet",
                 self.chosen[2].as_ref(),
                 Message::AscensionSelected
-            ),
-            // text("Role Tenet").width(Length::Shrink),
+            )
+            .size(18)
+            .padding([5, 15])
+            .input_style(Self::combo_box_input_style)
+            .menu_style(Self::combo_box_menu_style)
+            .on_open(Message::AscensionOpen),
             combo_box(
                 &self.tenet_options[3],
                 "Role Tenet",
                 self.chosen[3].as_ref(),
                 Message::RoleSelected
-            ),
-            // text("Epistemology Tenet").width(Length::Shrink),
+            )
+            .size(18)
+            .padding([5, 15])
+            .input_style(Self::combo_box_input_style)
+            .menu_style(Self::combo_box_menu_style)
+            .on_open(Message::RoleOpen),
             combo_box(
                 &self.tenet_options[4],
                 "Epistemology Tenet",
                 self.chosen[4].as_ref(),
                 Message::EpistemologySelected
-            ),
-            // text("Openness Tenet").width(Length::Shrink),
+            )
+            .size(18)
+            .padding([5, 15])
+            .input_style(Self::combo_box_input_style)
+            .menu_style(Self::combo_box_menu_style)
+            .on_open(Message::EpistemologyOpen),
             combo_box(
                 &self.tenet_options[5],
                 "Openness Tenet",
                 self.chosen[5].as_ref(),
                 Message::OpennessSelected
-            ),
-            // text("Afterlife Tenet").width(Length::Shrink),
+            )
+            .size(18)
+            .padding([5, 15])
+            .input_style(Self::combo_box_input_style)
+            .menu_style(Self::combo_box_menu_style)
+            .on_open(Message::OpennessOpen),
             combo_box(
                 &self.tenet_options[6],
                 "Afterlife Tenet",
                 self.chosen[6].as_ref(),
                 Message::AfterlifeSelected
-            ),
+            )
+            .size(18)
+            .padding([5, 15])
+            .input_style(Self::combo_box_input_style)
+            .menu_style(Self::combo_box_menu_style)
+            .on_open(Message::AfterlifeOpen),
         ]
-        .spacing(10)
-        // .columns(2)
-        .height(Shrink);
+        .spacing(15)
+        .height(Shrink)
+        .padding(15);
 
         scrollable(
             column![
@@ -210,12 +276,13 @@ impl State {
                     Element::from(grid)
                 } else {
                     text("Pick a Metaphysical, Personal, and Ascension tenet")
+                        .size(18)
                         .width(Fill)
                         .center()
                         .into()
                 }
             ]
-            .spacing(10),
+            .max_width(500),
         )
         .into()
     }
