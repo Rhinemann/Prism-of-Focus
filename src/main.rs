@@ -165,7 +165,7 @@ impl State {
                     components::centered_column(practice_string(&self.associated_practices)),
                     components::centered_column(practice_string(&self.limited_practices)),
                 )
-                .spacing(10)
+                .spacing(15)
                 .height(Shrink)
                 .columns(2),
             )
@@ -268,7 +268,9 @@ impl State {
                         .into()
                 }
             ]
-            .max_width(500),
+            .spacing(15)
+            .max_width(500)
+            .padding(15),
         )
         .into()
     }
