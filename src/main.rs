@@ -1,3 +1,5 @@
+
+pub mod components;
 mod focus;
 
 use crate::focus::{Practice, Tenet};
@@ -153,30 +155,14 @@ impl State {
         }
     }
 
-    fn combo_box_menu_style(theme: &Theme) -> menu::Style {
-        let mut style = menu::default(theme);
-        style.border.radius = Radius::new(15);
-
-        style
-    }
-
-    fn combo_box_input_style(theme: &Theme, status: text_input::Status) -> text_input::Style {
-        let mut style = text_input::default(theme, status);
-        style.border.radius = Radius::new(15);
-
-        style
-    }
-
     fn view(&self) -> Element<'_, Message> {
         let practice_grid = if self.chosen[0..3].iter().all(|option| option.is_some()) {
             Some(
                 grid!(
-                    text("Associated Practices").size(18).center(),
-                    text("Limited Practices").size(18).center(),
-                    container(text(Self::practice_string(&self.associated_practices)))
-                        .align_x(Horizontal::Center),
-                    container(text(Self::practice_string(&self.limited_practices)))
-                        .align_x(Horizontal::Center),
+                    components::heading("Associated Practices"),
+                    components::heading("Limited Practices"),
+                    components::centered_column(practice_string(&self.associated_practices)),
+                    components::centered_column(practice_string(&self.limited_practices)),
                 )
                 .spacing(10)
                 .height(Shrink)
@@ -275,8 +261,7 @@ impl State {
                 if let Some(grid) = practice_grid {
                     Element::from(grid)
                 } else {
-                    text("Pick a Metaphysical, Personal, and Ascension tenet")
-                        .size(18)
+                    components::heading("Pick a Metaphysical, Personal, and Ascension tenet")
                         .width(Fill)
                         .center()
                         .into()
