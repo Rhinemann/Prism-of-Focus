@@ -4,12 +4,9 @@ pub mod components;
 mod focus;
 
 use crate::focus::{Practice, Tenet};
-use iced::alignment::Horizontal;
-use iced::border::Radius;
-use iced::overlay::menu;
-use iced::widget::{column, combo_box, container, grid, scrollable, text, text_input};
+use iced::widget::{column, combo_box, grid, scrollable, Column};
+use iced::Element;
 use iced::Length::{Fill, Shrink};
-use iced::{Element, Theme};
 use std::collections::HashSet;
 
 pub fn main() -> iced::Result {
