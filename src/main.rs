@@ -234,3 +234,4 @@ impl State {
         .into()
     }
 }
+struct TenetParameter<'a>(usize, &'a str, fn(Tenet) -> Message, Message);
