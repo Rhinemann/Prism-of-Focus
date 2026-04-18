@@ -102,7 +102,7 @@ pub enum Tenet {
     HierarchicalParadigm,
     OpenParadigm,
     Reincarnation,
-    YOLO,
+    Yolo,
 }
 
 impl Tenet {
@@ -144,7 +144,7 @@ impl Tenet {
         Tenet::OpenParadigm,
     ];
 
-    pub const AFTERLIFE: [Tenet; 2] = [Tenet::Reincarnation, Tenet::YOLO];
+    pub const AFTERLIFE: [Tenet; 2] = [Tenet::Reincarnation, Tenet::Yolo];
 
     pub fn associated_practices(&self) -> HashSet<Practice> {
         match self {
@@ -327,7 +327,7 @@ impl Tenet {
                 Practice::CrazyWisdom,
                 Practice::ChaosMagick,
             ]),
-            Tenet::YOLO => HashSet::from([
+            Tenet::Yolo => HashSet::from([
                 Practice::Hypertech,
                 Practice::WeirdScience,
                 Practice::Faith,
@@ -506,7 +506,7 @@ impl Tenet {
                 Practice::Faith,
                 Practice::Hypertech,
             ]),
-            Tenet::YOLO => HashSet::from([
+            Tenet::Yolo => HashSet::from([
                 Practice::ChaosMagick,
                 Practice::Yoga,
                 Practice::Shamanism,
@@ -547,7 +547,7 @@ impl Display for Tenet {
             Tenet::HierarchicalParadigm => "Hierarchical Paradigm",
             Tenet::OpenParadigm => "Open Paradigm",
             Tenet::Reincarnation => "Reincarnation",
-            Tenet::YOLO => "YOLO",
+            Tenet::Yolo => "YOLO",
         })
     }
 }
