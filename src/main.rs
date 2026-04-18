@@ -20,7 +20,7 @@ pub fn main() -> iced::Result {
 }
 
 #[derive(Debug, Clone)]
-enum Message {
+pub enum Message {
     MetaphysicalSelected(Tenet),
     PersonalSelected(Tenet),
     AscensionSelected(Tenet),
