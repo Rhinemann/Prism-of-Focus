@@ -74,7 +74,7 @@ impl Display for Practice {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
 pub enum Tenet {
     ARationalUniverse,
     AsAboveSoBelow,
