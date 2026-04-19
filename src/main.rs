@@ -125,12 +125,12 @@ impl State {
             .all(|option| option.is_some())
         {
             Some(
-                grid!(
+                grid![
                     heading("Associated Practices"),
                     heading("Limited Practices"),
                     centered(practice_string(&self.associated_practices)),
                     centered(practice_string(&self.limited_practices)),
-                )
+                ]
                 .spacing(15)
                 .height(Shrink)
                 .columns(2),
