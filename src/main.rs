@@ -245,7 +245,6 @@ impl State {
                 }
             ]
             .spacing(15)
-            .max_width(500)
             .padding(15),
         )
         .into()
