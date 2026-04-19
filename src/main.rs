@@ -6,7 +6,7 @@ pub mod styles;
 use crate::focus::{Practice, Tenet};
 use iced::alignment::Horizontal;
 use iced::widget::{column, container, grid, pick_list, scrollable, text, Column};
-use iced::{font, window, Element, Fill, Shrink, Size};
+use iced::{color, font, theme, window, Color, Element, Fill, Shrink, Size, Theme};
 use std::collections::HashSet;
 
 type PracticeSet = HashSet<Practice>;
@@ -17,6 +17,7 @@ pub fn main() -> iced::Result {
     window_settings.size = Size::new(500f32, 500f32);
     iced::application(State::new, State::update, State::view)
         .window(window_settings)
+        .theme(State::theme)
         .title("Prism of Focus")
         .run()
 }
@@ -248,6 +249,20 @@ impl State {
             .padding(15),
         )
         .into()
+    }
+
+    fn theme(&self) -> Theme {
+        Theme::custom(
+            String::from("Custom"),
+            theme::Palette {
+                background: Color::WHITE,
+                primary: color!(0x4B0082),
+                text: color!(0x4B0082),
+                success: color!(0xFFD700),
+                warning: color!(0xCC2936),
+                danger: color!(0x9A031E),
+            },
+        )
     }
 }
 
