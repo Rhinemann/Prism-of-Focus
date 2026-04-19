@@ -71,38 +71,38 @@ impl State {
     const TENET_COMBO_PARAMETERS: [TenetParameter<'_>; 7] = [
         TenetParameter::new(
             0,
-            "Metaphysical Tenet",
-            Message::MetaphysicalSelected as fn(Tenet) -> Message,
+            "Metaphysical",
+            Message::MetaphysicalSelected,
             Message::MetaphysicalOpen,
         ),
         TenetParameter::new(
             1,
-            "Personal Tenet",
+            "Personal",
             Message::PersonalSelected,
             Message::PersonalOpen,
         ),
         TenetParameter::new(
             2,
-            "Ascension Tenet",
+            "Ascension",
             Message::AscensionSelected,
             Message::AscensionOpen,
         ),
-        TenetParameter::new(3, "Role Tenet", Message::RoleSelected, Message::RoleOpen),
+        TenetParameter::new(3, "Role", Message::RoleSelected, Message::RoleOpen),
         TenetParameter::new(
             4,
-            "Epistemology Tenet",
+            "Epistemology",
             Message::EpistemologySelected,
             Message::EpistemologyOpen,
         ),
         TenetParameter::new(
             5,
-            "Openness Tenet",
+            "Openness",
             Message::OpennessSelected,
             Message::OpennessOpen,
         ),
         TenetParameter::new(
             6,
-            "Afterlife Tenet",
+            "Afterlife",
             Message::AfterlifeSelected,
             Message::AfterlifeOpen,
         ),
@@ -199,7 +199,7 @@ impl State {
                 self.tenets_chosen[tenet_parameter.index].as_ref(),
                 tenet_parameter.selected,
             )
-            .placeholder(tenet_parameter.name)
+            .placeholder(format!("Choose {} Tenet", tenet_parameter.name))
             .padding([5, 15])
             .style(styles::tenet_box_style)
             .menu_style(styles::tenet_box_menu_style)
