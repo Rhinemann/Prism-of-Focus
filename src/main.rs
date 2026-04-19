@@ -39,7 +39,7 @@ struct State {
 
 impl State {
     pub fn new() -> Self {
-        let mut res = Self {
+        Self {
             associated_practices: PracticeSet::new(),
             limited_practices: PracticeSet::new(),
             tenets_chosen: [None; 7],
@@ -52,11 +52,7 @@ impl State {
                 Tenet::OPENNESS.to_vec(),
                 Tenet::AFTERLIFE.to_vec(),
             ],
-        };
-
-        res.update_practices();
-
-        res
+        }
     }
 
     const TENET_COMBO_PARAMETERS: [&str; 7] = [
