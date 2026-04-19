@@ -4,8 +4,8 @@ mod focus;
 pub mod styles;
 
 use crate::focus::{Practice, Tenet};
-use iced::alignment;
 use iced::widget::{column, container, grid, pick_list, scrollable, text, Column};
+use iced::{alignment, Function};
 use iced::{color, font, theme, window, Color, Element, Fill, Shrink, Size, Theme};
 use std::collections::HashSet;
 
