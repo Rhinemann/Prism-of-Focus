@@ -4,8 +4,9 @@ pub mod components;
 mod focus;
 
 use crate::focus::{Practice, Tenet};
-use iced::widget::{column, combo_box, grid, scrollable, Column};
-use iced::{window, Element, Shrink, Size};
+use iced::alignment::Horizontal;
+use iced::widget::{column, container, grid, pick_list, scrollable, text, Column};
+use iced::{font, window, Element, Fill, Shrink, Size};
 use std::collections::HashSet;
 
 type PracticeSet = HashSet<Practice>;
@@ -39,12 +40,9 @@ pub enum Message {
 }
 
 struct State {
-    associated_practices: HashSet<Practice>,
-    limited_practices: HashSet<Practice>,
-    tenet_options: [combo_box::State<Tenet>; 7],
-    chosen: [Option<Tenet>; 7],
     associated_practices: PracticeSet,
     limited_practices: PracticeSet,
+    tenet_options: [Vec<Tenet>; 7],
     tenets_chosen: [Option<Tenet>; 7],
 }
 
@@ -55,13 +53,13 @@ impl State {
             limited_practices: PracticeSet::new(),
             tenets_chosen: [None; 7],
             tenet_options: [
-                combo_box::State::new(Tenet::METAPHYSICAL.to_vec()),
-                combo_box::State::new(Tenet::PERSONAL.to_vec()),
-                combo_box::State::new(Tenet::ASCENSION.to_vec()),
-                combo_box::State::new(Tenet::ROLE.to_vec()),
-                combo_box::State::new(Tenet::EPISTEMOLOGY.to_vec()),
-                combo_box::State::new(Tenet::OPENNESS.to_vec()),
-                combo_box::State::new(Tenet::AFTERLIFE.to_vec()),
+                Tenet::METAPHYSICAL.to_vec(),
+                Tenet::PERSONAL.to_vec(),
+                Tenet::ASCENSION.to_vec(),
+                Tenet::ROLE.to_vec(),
+                Tenet::EPISTEMOLOGY.to_vec(),
+                Tenet::OPENNESS.to_vec(),
+                Tenet::AFTERLIFE.to_vec(),
             ],
         };
 
@@ -190,13 +188,36 @@ impl State {
     }
 
     fn view(&self) -> Element<'_, Message> {
-        let practice_grid = if self.chosen[0..3].iter().all(|option| option.is_some()) {
+        let mut bold_font = font::Font::DEFAULT;
+        bold_font.weight = font::Weight::Bold;
+
+        let heading = |string| text(string).size(18).center().width(Fill).font(bold_font);
+        let centered = |string| container(text(string)).align_x(Horizontal::Center);
+        let tenet_box = |tenet_parameter: &TenetParameter| {
+            pick_list(
+                self.tenet_options[tenet_parameter.index].clone(),
+                self.tenets_chosen[tenet_parameter.index].as_ref(),
+                tenet_parameter.selected,
+            )
+            .placeholder(tenet_parameter.name)
+            .padding([5, 15])
+            .style(components::tenet_box_style)
+            .menu_style(components::tenet_box_menu_style)
+            .font(bold_font)
+            .width(Fill)
+            .on_open(tenet_parameter.open)
+        };
+
+        let practice_grid = if self.tenets_chosen[0..3]
+            .iter()
+            .all(|option| option.is_some())
+        {
             Some(
                 grid!(
-                    components::heading("Associated Practices"),
-                    components::heading("Limited Practices"),
-                    components::centered_column(practice_string(&self.associated_practices)),
-                    components::centered_column(practice_string(&self.limited_practices)),
+                    heading("Associated Practices"),
+                    heading("Limited Practices"),
+                    centered(practice_string(&self.associated_practices)),
+                    centered(practice_string(&self.limited_practices)),
                 )
                 .spacing(15)
                 .height(Shrink)
@@ -206,23 +227,13 @@ impl State {
             None
         };
 
-        let tenet_grid =
-            Column::with_children(Self::TENET_COMBO_PARAMETERS.iter().map(|parameter| {
-                combo_box(
-                    &self.tenet_options[parameter.0],
-                    parameter.1,
-                    self.chosen[parameter.0].as_ref(),
-                    parameter.2,
-                )
-                .size(18)
-                .padding([5, 15])
-                .input_style(components::combo_box_input_style)
-                .menu_style(components::combo_box_menu_style)
-                .on_open(parameter.3)
-                .into()
-            }))
-            .spacing(15)
-            .height(Shrink);
+        let tenet_grid = Column::with_children(
+            Self::TENET_COMBO_PARAMETERS
+                .iter()
+                .map(|parameter| tenet_box(parameter).into()),
+        )
+        .spacing(15)
+        .height(Shrink);
 
         scrollable(
             column![
@@ -230,7 +241,7 @@ impl State {
                 if let Some(grid) = practice_grid {
                     Element::from(grid)
                 } else {
-                    components::heading("Pick a Metaphysical, Personal, and Ascension tenet").into()
+                    heading("Pick a Metaphysical, Personal, and Ascension tenet").into()
                 }
             ]
             .spacing(15)
