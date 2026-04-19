@@ -12,9 +12,11 @@ use std::collections::HashSet;
 type PracticeSet = HashSet<Practice>;
 
 pub fn main() -> iced::Result {
-    let mut window_settings = window::Settings::default();
-    window_settings.min_size = Some(Size::new(390f32, 400f32));
-    window_settings.size = Size::new(500f32, 500f32);
+    let window_settings = window::Settings {
+        min_size: Some(Size::new(390f32, 400f32)),
+        size: Size::new(400f32, 500f32),
+        ..window::Settings::default()
+    };
     iced::application(State::new, State::update, State::view)
         .window(window_settings)
         .theme(State::theme)
