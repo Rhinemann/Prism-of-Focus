@@ -1,7 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-pub mod components;
 mod focus;
+pub mod styles;
 
 use crate::focus::{Practice, Tenet};
 use iced::alignment::Horizontal;
@@ -201,8 +201,8 @@ impl State {
             )
             .placeholder(tenet_parameter.name)
             .padding([5, 15])
-            .style(components::tenet_box_style)
-            .menu_style(components::tenet_box_menu_style)
+            .style(styles::tenet_box_style)
+            .menu_style(styles::tenet_box_menu_style)
             .font(bold_font)
             .width(Fill)
             .on_open(tenet_parameter.open)
