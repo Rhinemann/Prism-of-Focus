@@ -4,7 +4,7 @@ mod focus;
 pub mod styles;
 
 use crate::focus::{Practice, Tenet};
-use iced::alignment::Horizontal;
+use iced::alignment;
 use iced::widget::{column, container, grid, pick_list, scrollable, text, Column};
 use iced::{color, font, theme, window, Color, Element, Fill, Shrink, Size, Theme};
 use std::collections::HashSet;
@@ -193,7 +193,7 @@ impl State {
         bold_font.weight = font::Weight::Bold;
 
         let heading = |string| text(string).size(18).center().width(Fill).font(bold_font);
-        let centered = |string| container(text(string)).align_x(Horizontal::Center);
+        let centered = |string| container(text(string)).align_x(alignment::Horizontal::Center);
         let tenet_box = |tenet_parameter: &TenetParameter| {
             pick_list(
                 self.tenet_options[tenet_parameter.index].clone(),
