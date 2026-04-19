@@ -24,20 +24,8 @@ pub fn main() -> iced::Result {
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
-    MetaphysicalSelected(Tenet),
-    PersonalSelected(Tenet),
-    AscensionSelected(Tenet),
-    RoleSelected(Tenet),
-    EpistemologySelected(Tenet),
-    OpennessSelected(Tenet),
-    AfterlifeSelected(Tenet),
-    MetaphysicalOpen,
-    PersonalOpen,
-    AscensionOpen,
-    RoleOpen,
-    EpistemologyOpen,
-    OpennessOpen,
-    AfterlifeOpen,
+    TenetSelected(usize, Tenet),
+    TenetOpen(usize),
 }
 
 struct State {
@@ -69,44 +57,14 @@ impl State {
         res
     }
 
-    const TENET_COMBO_PARAMETERS: [TenetParameter<'_>; 7] = [
-        TenetParameter::new(
-            0,
-            "Metaphysical",
-            Message::MetaphysicalSelected,
-            Message::MetaphysicalOpen,
-        ),
-        TenetParameter::new(
-            1,
-            "Personal",
-            Message::PersonalSelected,
-            Message::PersonalOpen,
-        ),
-        TenetParameter::new(
-            2,
-            "Ascension",
-            Message::AscensionSelected,
-            Message::AscensionOpen,
-        ),
-        TenetParameter::new(3, "Role", Message::RoleSelected, Message::RoleOpen),
-        TenetParameter::new(
-            4,
-            "Epistemology",
-            Message::EpistemologySelected,
-            Message::EpistemologyOpen,
-        ),
-        TenetParameter::new(
-            5,
-            "Openness",
-            Message::OpennessSelected,
-            Message::OpennessOpen,
-        ),
-        TenetParameter::new(
-            6,
-            "Afterlife",
-            Message::AfterlifeSelected,
-            Message::AfterlifeOpen,
-        ),
+    const TENET_COMBO_PARAMETERS: [&str; 7] = [
+        "Metaphysical",
+        "Personal",
+        "Ascension",
+        "Role",
+        "Epistemology",
+        "Openness",
+        "Afterlife",
     ];
 
     fn update_practices(&mut self) {
@@ -129,60 +87,12 @@ impl State {
 
     fn update(&mut self, message: Message) {
         match message {
-            Message::MetaphysicalSelected(tenet) => {
-                self.tenets_chosen[0] = Some(tenet);
+            Message::TenetSelected(index, tenet) => {
+                self.tenets_chosen[index] = Some(tenet);
                 self.update_practices()
             }
-            Message::PersonalSelected(tenet) => {
-                self.tenets_chosen[1] = Some(tenet);
-                self.update_practices()
-            }
-            Message::AscensionSelected(tenet) => {
-                self.tenets_chosen[2] = Some(tenet);
-                self.update_practices()
-            }
-            Message::RoleSelected(tenet) => {
-                self.tenets_chosen[3] = Some(tenet);
-                self.update_practices()
-            }
-            Message::EpistemologySelected(tenet) => {
-                self.tenets_chosen[4] = Some(tenet);
-                self.update_practices()
-            }
-            Message::OpennessSelected(tenet) => {
-                self.tenets_chosen[5] = Some(tenet);
-                self.update_practices()
-            }
-            Message::AfterlifeSelected(tenet) => {
-                self.tenets_chosen[6] = Some(tenet);
-                self.update_practices()
-            }
-            Message::MetaphysicalOpen => {
-                self.tenets_chosen[0] = None;
-                self.update_practices()
-            }
-            Message::PersonalOpen => {
-                self.tenets_chosen[1] = None;
-                self.update_practices()
-            }
-            Message::AscensionOpen => {
-                self.tenets_chosen[2] = None;
-                self.update_practices()
-            }
-            Message::RoleOpen => {
-                self.tenets_chosen[3] = None;
-                self.update_practices()
-            }
-            Message::EpistemologyOpen => {
-                self.tenets_chosen[4] = None;
-                self.update_practices()
-            }
-            Message::OpennessOpen => {
-                self.tenets_chosen[5] = None;
-                self.update_practices()
-            }
-            Message::AfterlifeOpen => {
-                self.tenets_chosen[6] = None;
+            Message::TenetOpen(index) => {
+                self.tenets_chosen[index] = None;
                 self.update_practices()
             }
         }
@@ -194,19 +104,20 @@ impl State {
 
         let heading = |string| text(string).size(18).center().width(Fill).font(bold_font);
         let centered = |string| container(text(string)).align_x(alignment::Horizontal::Center);
-        let tenet_box = |tenet_parameter: &TenetParameter| {
+        let tenet_box = |index: usize, name: &str| {
             pick_list(
-                self.tenet_options[tenet_parameter.index].clone(),
-                self.tenets_chosen[tenet_parameter.index].as_ref(),
-                tenet_parameter.selected,
+                self.tenet_options[index].clone(),
+                self.tenets_chosen[index].as_ref(),
+                Message::TenetSelected.with(index),
             )
-            .placeholder(format!("Choose {} Tenet", tenet_parameter.name))
+            .placeholder(format!("Choose {} Tenet", name))
             .padding([5, 15])
             .style(styles::tenet_box_style)
             .menu_style(styles::tenet_box_menu_style)
             .font(bold_font)
             .width(Fill)
-            .on_open(tenet_parameter.open)
+            .on_open(Message::TenetOpen(index))
+            .into()
         };
 
         let practice_grid = if self.tenets_chosen[0..3]
@@ -231,7 +142,8 @@ impl State {
         let tenet_grid = Column::with_children(
             Self::TENET_COMBO_PARAMETERS
                 .iter()
-                .map(|parameter| tenet_box(parameter).into()),
+                .enumerate()
+                .map(|(index, parameter)| tenet_box(index, parameter)),
         )
         .spacing(15)
         .height(Shrink);
@@ -263,29 +175,6 @@ impl State {
                 danger: color!(0x9A031E),
             },
         )
-    }
-}
-
-pub struct TenetParameter<'a> {
-    index: usize,
-    name: &'a str,
-    selected: fn(Tenet) -> Message,
-    open: Message,
-}
-
-impl<'a> TenetParameter<'a> {
-    const fn new(
-        index: usize,
-        name: &'a str,
-        selected: fn(Tenet) -> Message,
-        open: Message,
-    ) -> Self {
-        Self {
-            index,
-            name,
-            selected,
-            open,
-        }
     }
 }
 
