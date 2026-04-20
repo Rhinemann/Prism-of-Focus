@@ -4,9 +4,11 @@ mod focus;
 pub mod styles;
 
 use crate::focus::{Practice, Tenet};
-use iced::widget::{column, container, grid, pick_list, scrollable, text, Column};
-use iced::{alignment, Function};
-use iced::{color, font, theme, window, Color, Element, Fill, Shrink, Size, Theme};
+use iced::widget::{Column, column, container, grid, pick_list, scrollable, text};
+use iced::{
+    Color, Element, Fill, Function, Shrink, Size, Theme, alignment, color, font, theme, window,
+};
+use std::borrow::Cow;
 use std::collections::HashSet;
 
 type PracticeSet = HashSet<Practice>;
@@ -17,7 +19,17 @@ pub fn main() -> iced::Result {
         size: Size::new(400f32, 500f32),
         ..window::Settings::default()
     };
+
+    let font_pointer: Cow<'static, [u8]> =
+        Cow::from(include_bytes!("../CormorantGaramond-VariableFont_wght.ttf"));
+
+    let mut app_settings = iced::Settings::default();
+
+    app_settings.fonts.push(font_pointer);
+    app_settings.default_font = font::Font::with_name("Cormorant Garamond");
+
     iced::application(State::new, State::update, State::view)
+        .settings(app_settings)
         .window(window_settings)
         .theme(State::theme)
         .title("Prism of Focus")
@@ -97,7 +109,7 @@ impl State {
     }
 
     fn view(&self) -> Element<'_, Message> {
-        let mut bold_font = font::Font::DEFAULT;
+        let mut bold_font = font::Font::with_name("Cormorant Garamond");
         bold_font.weight = font::Weight::Bold;
 
         let heading = |string| text(string).size(18).center().width(Fill).font(bold_font);
