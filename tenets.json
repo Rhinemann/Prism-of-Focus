@@ -1,0 +1,460 @@
+[
+  [
+    {
+      "name": "A Rational Universe",
+      "associated_practices": [
+        "Cybernetics",
+        "Reality Hacking",
+        "Alchemy",
+        "Hypertech",
+        "Craftwork"
+      ],
+      "limited_practices": [
+        "Voudoun",
+        "Crazy Wisdom",
+        "Witchcraft",
+        "Gutter Magick",
+        "Chaos Magick"
+      ]
+    },
+    {
+      "name": "Above So Below",
+      "associated_practices": [
+        "Dominion",
+        "High Ritual Magick",
+        "Alchemy",
+        "Witchcraft",
+        "Faith"
+      ],
+      "limited_practices": [
+        "Reality Hacking",
+        "Weird Science",
+        "Chaos Magick",
+        "Art of Desire",
+        "Hypertech"
+      ]
+    },
+    {
+      "name": "Fall From Grace",
+      "associated_practices": [
+        "Faith",
+        "High Ritual Magick",
+        "Animalism",
+        "God-Bonding"
+      ],
+      "limited_practices": [
+        "Reality Hacking",
+        "Invigoration",
+        "Medicine Work",
+        "Hypertech",
+        "Yoga"
+      ]
+    },
+    {
+      "name": "Reality is a Lie",
+      "associated_practices": [
+        "Yoga",
+        "Martial Arts",
+        "Chaos Magick",
+        "Bardism",
+        "Crazy Wisdom"
+      ],
+      "limited_practices": [
+        "Cybernetics",
+        "Craftwork",
+        "High Ritual Magick",
+        "Weird Science",
+        "Elementalism"
+      ]
+    },
+    {
+      "name": "The Divine is Real",
+      "associated_practices": [
+        "God-Bonding",
+        "Faith",
+        "Yoga",
+        "Invigoration",
+        "Witchcraft"
+      ],
+      "limited_practices": [
+        "Reality Hacking",
+        "Weird Science",
+        "Bardism"
+      ]
+    },
+    {
+      "name": "Unfathomable Forces at Work",
+      "associated_practices": [
+        "Voudoun",
+        "Maleficia",
+        "Invigoration",
+        "Elementalism",
+        "Psionics"
+      ],
+      "limited_practices": [
+        "Cybernetics",
+        "Weird Science",
+        "Dominion",
+        "Art of Desire",
+        "Reality Hacking"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "I Am Chosen",
+      "associated_practices": [
+        "Cybernetics",
+        "Witchcraft",
+        "Martial Arts",
+        "Mediumship",
+        "Shamanism",
+        "God-Bonding"
+      ],
+      "limited_practices": [
+        "Alchemy",
+        "High Ritual Magick",
+        "Art of Desire",
+        "Hypertech",
+        "Elementalism",
+        "Invigoration"
+      ]
+    },
+    {
+      "name": "I Am Not Limited",
+      "associated_practices": [
+        "High Ritual Magick",
+        "Psionics",
+        "Weird Science",
+        "Invigoration",
+        "Crazy Wisdom"
+      ],
+      "limited_practices": [
+        "Martial Arts",
+        "Witchcraft",
+        "Craftwork"
+      ]
+    },
+    {
+      "name": "I Am Special",
+      "associated_practices": [
+        "Elementalism",
+        "Shamanism",
+        "Bardism",
+        "Dominion",
+        "Psionics"
+      ],
+      "limited_practices": [
+        "Chaos Magick",
+        "Gutter Magick",
+        "Mediumship"
+      ]
+    },
+    {
+      "name": "I Have Greater Understanding",
+      "associated_practices": [
+        "Alchemy",
+        "Reality Hacking",
+        "Crazy Wisdom",
+        "Hypertech",
+        "Medicine Work"
+      ],
+      "limited_practices": [
+        "God-Bonding",
+        "Bardism",
+        "Gutter Magick",
+        "Psionics"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Achieve Full Knowledge",
+      "associated_practices": [
+        "Alchemy",
+        "Reality Hacking",
+        "Hypertech",
+        "Medicine Work",
+        "Weird Science"
+      ],
+      "limited_practices": [
+        "Mediumship",
+        "Bardism",
+        "Animalism",
+        "God-Bonding",
+        "Faith",
+        "Yoga"
+      ]
+    },
+    {
+      "name": "Annihilation is Freedom",
+      "associated_practices": [
+        "Gutter Magick",
+        "Chaos Magick",
+        "Martial Arts",
+        "Maleficia"
+      ],
+      "limited_practices": [
+        "Craftwork",
+        "Elementalism",
+        "Medicine Work",
+        "Art of Desire",
+        "Animalism"
+      ]
+    },
+    {
+      "name": "Build a Utopia",
+      "associated_practices": [
+        "Weird Science",
+        "Craftwork",
+        "Art of Desire",
+        "Dominion",
+        "Cybernetics",
+        "Faith"
+      ],
+      "limited_practices": [
+        "Voudoun",
+        "Maleficia",
+        "Animalism"
+      ]
+    },
+    {
+      "name": "Existence is Meaningless",
+      "associated_practices": [
+        "Animalism",
+        "Bardism",
+        "Gutter Magick"
+      ],
+      "limited_practices": [
+        "Faith",
+        "God-Bonding",
+        "Medicine Work",
+        "Alchemy"
+      ]
+    },
+    {
+      "name": "Merge With The Divine",
+      "associated_practices": [
+        "Voudoun",
+        "Mediumship",
+        "God-Bonding",
+        "Faith",
+        "Elementalism",
+        "Yoga"
+      ],
+      "limited_practices": [
+        "Hypertech",
+        "Weird Science",
+        "Cybernetics",
+        "Chaos Magick"
+      ]
+    },
+    {
+      "name": "Power is its Own Reward",
+      "associated_practices": [
+        "Maleficia",
+        "Dominion",
+        "Art of Desire",
+        "High Ritual Magick"
+      ],
+      "limited_practices": [
+        "Crazy Wisdom",
+        "Shamanism",
+        "Voudoun",
+        "Faith",
+        "Yoga"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "I Illuminate",
+      "associated_practices": [
+        "High Ritual Magick",
+        "Hypertech",
+        "Charity",
+        "Alchemy",
+        "Faith"
+      ],
+      "limited_practices": [
+        "Psionics",
+        "Media Control",
+        "Maleficia",
+        "Appropriation",
+        "Animalism"
+      ]
+    },
+    {
+      "name": "I Rule",
+      "associated_practices": [
+        "Art of Desire",
+        "Alchemy",
+        "Dominion",
+        "Media Control",
+        "High Ritual Magick"
+      ],
+      "limited_practices": [
+        "Faith",
+        "Witchcraft",
+        "Charity",
+        "Shamanism",
+        "Mediumship"
+      ]
+    },
+    {
+      "name": "I Serve",
+      "associated_practices": [
+        "Shamanism",
+        "Charity",
+        "Faith",
+        "Witchcraft",
+        "Mediumship"
+      ],
+      "limited_practices": [
+        "High Ritual Magick",
+        "Alchemy",
+        "Media Control",
+        "Art of Desire",
+        "Dominion"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Mystical Insights",
+      "associated_practices": [
+        "Chaos Magick",
+        "Witchcraft",
+        "Crazy Wisdom",
+        "Alchemy",
+        "High Ritual Magick"
+      ],
+      "limited_practices": [
+        "Media Control",
+        "Cybernetics",
+        "Faith",
+        "Hypertech"
+      ]
+    },
+    {
+      "name": "Scientific Experimentation",
+      "associated_practices": [
+        "Hypertech",
+        "Craftwork",
+        "High Ritual Magick",
+        "Cybernetics",
+        "Weird Science",
+        "Alchemy"
+      ],
+      "limited_practices": [
+        "Chaos Magick",
+        "Maleficia",
+        "Shamanism",
+        "Faith",
+        "Witchcraft",
+        "Crazy Wisdom"
+      ]
+    },
+    {
+      "name": "Divine Revelations",
+      "associated_practices": [
+        "God-Bonding",
+        "Faith",
+        "Crazy Wisdom",
+        "Shamanism",
+        "Maleficia"
+      ],
+      "limited_practices": [
+        "Weird Science",
+        "Alchemy",
+        "Hypertech",
+        "High Ritual Magick",
+        "Martial Arts"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Closed Paradigm",
+      "associated_practices": [
+        "Cybernetics",
+        "Dominion",
+        "Hypertech"
+      ],
+      "limited_practices": [
+        "Weird Science",
+        "Art of Desire",
+        "Chaos Magick",
+        "Gutter Magick",
+        "Crazy Wisdom"
+      ]
+    },
+    {
+      "name": "Hierarchical Paradigm",
+      "associated_practices": [
+        "Weird Science",
+        "Martial Arts",
+        "God-Bonding",
+        "Dominion"
+      ],
+      "limited_practices": [
+        "Hypertech",
+        "High Ritual Magick",
+        "Cybernetics",
+        "Faith",
+        "Chaos Magick"
+      ]
+    },
+    {
+      "name": "Open Paradigm",
+      "associated_practices": [
+        "Weird Science",
+        "Crazy Wisdom",
+        "Gutter Magick",
+        "Art of Desire",
+        "Chaos Magick"
+      ],
+      "limited_practices": [
+        "Cybernetics",
+        "Hypertech",
+        "Dominion"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Reincarnation",
+      "associated_practices": [
+        "Martial Arts",
+        "Witchcraft",
+        "Shamanism",
+        "Chaos Magick",
+        "Yoga",
+        "Crazy Wisdom"
+      ],
+      "limited_practices": [
+        "Hypertech",
+        "Weird Science",
+        "Alchemy",
+        "Faith"
+      ]
+    },
+    {
+      "name": "YOLO",
+      "associated_practices": [
+        "Faith",
+        "Hypertech",
+        "Alchemy",
+        "Weird Science"
+      ],
+      "limited_practices": [
+        "Crazy Wisdom",
+        "Yoga",
+        "Witchcraft",
+        "Martial Arts",
+        "Chaos Magick",
+        "Shamanism"
+      ]
+    }
+  ]
+]

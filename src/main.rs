@@ -3,13 +3,12 @@
 mod focus;
 pub mod styles;
 
-use crate::focus::{Practice, Tenet};
+use crate::focus::Tenet;
 use iced::widget::{column, container, grid, pick_list, scrollable, text, Column};
 use iced::{alignment, Function};
 use iced::{color, font, theme, window, Color, Element, Fill, Shrink, Size, Theme};
 use std::collections::HashSet;
-
-type PracticeSet = HashSet<Practice>;
+use std::{fs, process};
 
 pub fn main() -> iced::Result {
     let window_settings = window::Settings {
@@ -24,34 +23,37 @@ pub fn main() -> iced::Result {
         .run()
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub enum Message {
     TenetSelected(usize, Tenet),
     TenetOpen(usize),
 }
 
 struct State {
-    associated_practices: PracticeSet,
-    limited_practices: PracticeSet,
+    associated_practices: HashSet<String>,
+    limited_practices: HashSet<String>,
     tenet_options: [Vec<Tenet>; 7],
     tenets_chosen: [Option<Tenet>; 7],
 }
 
 impl State {
     pub fn new() -> Self {
+        let tenet_string = fs::read_to_string("tenets.json").unwrap_or_else(|e| {
+            println!("Error reading file: {e}");
+            process::exit(1)
+        });
+
+        let tenet_options: [Vec<Tenet>; 7] = serde_json::from_str(&tenet_string)
+            .unwrap_or_else(|e| {
+                println!("Error parsing file: {e}");
+                process::exit(1)
+            });
+
         Self {
-            associated_practices: PracticeSet::new(),
-            limited_practices: PracticeSet::new(),
-            tenets_chosen: [None; 7],
-            tenet_options: [
-                Tenet::METAPHYSICAL.to_vec(),
-                Tenet::PERSONAL.to_vec(),
-                Tenet::ASCENSION.to_vec(),
-                Tenet::ROLE.to_vec(),
-                Tenet::EPISTEMOLOGY.to_vec(),
-                Tenet::OPENNESS.to_vec(),
-                Tenet::AFTERLIFE.to_vec(),
-            ],
+            associated_practices: HashSet::new(),
+            limited_practices: HashSet::new(),
+            tenets_chosen: [None, None, None, None, None, None, None],
+            tenet_options,
         }
     }
 
@@ -66,9 +68,13 @@ impl State {
     ];
 
     fn update_practices(&mut self) {
-        let combine_practices = |f: fn(&Tenet) -> PracticeSet| self.tenets_chosen.iter().flatten().flat_map(f).collect();
-        let full_associated: PracticeSet = combine_practices(|tenet: &Tenet| tenet.associated_practices());
-        let full_limited: PracticeSet = combine_practices(|tenet: &Tenet| tenet.limited_practices());
+        let combine_practices = |f: fn(&Tenet) -> HashSet<String>| {
+            self.tenets_chosen.iter().flatten().flat_map(f).collect()
+        };
+        let full_associated: HashSet<String> =
+            combine_practices(|tenet| tenet.associated_practices.clone());
+        let full_limited: HashSet<String> =
+            combine_practices(|tenet| tenet.limited_practices.clone());
 
         self.associated_practices = &full_associated - &full_limited;
         self.limited_practices = &full_limited - &full_associated;
@@ -166,7 +172,7 @@ impl State {
     }
 }
 
-fn practice_string(practice_set: &PracticeSet) -> String {
+fn practice_string(practice_set: &HashSet<String>) -> String {
     let mut practice_vector = practice_set
         .iter()
         .map(|practice| practice.to_string())
