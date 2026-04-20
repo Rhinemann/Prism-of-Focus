@@ -66,18 +66,9 @@ impl State {
     ];
 
     fn update_practices(&mut self) {
-        let full_associated: PracticeSet = self
-            .tenets_chosen
-            .iter()
-            .flatten()
-            .flat_map(|tenet| tenet.associated_practices())
-            .collect();
-        let full_limited: PracticeSet = self
-            .tenets_chosen
-            .iter()
-            .flatten()
-            .flat_map(|tenet| tenet.limited_practices())
-            .collect();
+        let combine_practices = |f: fn(&Tenet) -> PracticeSet| self.tenets_chosen.iter().flatten().flat_map(f).collect();
+        let full_associated: PracticeSet = combine_practices(|tenet: &Tenet| tenet.associated_practices());
+        let full_limited: PracticeSet = combine_practices(|tenet: &Tenet| tenet.limited_practices());
 
         self.associated_practices = &full_associated - &full_limited;
         self.limited_practices = &full_limited - &full_associated;
