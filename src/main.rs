@@ -109,13 +109,12 @@ impl State {
                 Message::TenetSelected.with(index),
             )
             .placeholder(format!("Choose {} Tenet", name))
+            .on_open(Message::TenetOpen(index))
+            .width(Fill)
             .padding([5, 15])
+            .font(bold_font)
             .style(styles::tenet_box_style)
             .menu_style(styles::tenet_box_menu_style)
-            .font(bold_font)
-            .width(Fill)
-            .on_open(Message::TenetOpen(index))
-            .into()
         };
 
         let practice_grid = if self.tenets_chosen[0..3]
@@ -141,7 +140,7 @@ impl State {
             Self::TENET_COMBO_PARAMETERS
                 .iter()
                 .enumerate()
-                .map(|(index, parameter)| tenet_box(index, parameter)),
+                .map(|(index, name)| tenet_box(index, name).into()),
         )
         .spacing(15)
         .height(Shrink);
