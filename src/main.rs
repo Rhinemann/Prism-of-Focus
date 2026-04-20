@@ -12,8 +12,8 @@ use std::{fs, process};
 
 pub fn main() -> iced::Result {
     let window_settings = window::Settings {
-        min_size: Some(Size::new(390f32, 400f32)),
-        size: Size::new(400f32, 500f32),
+        min_size: Some(Size::new(420f32, 400f32)),
+        size: Size::new(420f32, 400f32),
         ..window::Settings::default()
     };
     iced::application(State::new, State::update, State::view)
@@ -43,8 +43,8 @@ impl State {
             process::exit(1)
         });
 
-        let tenet_options: [Vec<Tenet>; 7] = serde_json::from_str(&tenet_string)
-            .unwrap_or_else(|e| {
+        let tenet_options: [Vec<Tenet>; 7] =
+            serde_json::from_str(&tenet_string).unwrap_or_else(|e| {
                 println!("Error parsing file: {e}");
                 process::exit(1)
             });
@@ -125,7 +125,7 @@ impl State {
                     centered(practice_string(&self.associated_practices)),
                     centered(practice_string(&self.limited_practices)),
                 ]
-                .spacing(15)
+                .spacing(10)
                 .height(Shrink)
                 .columns(2),
             )
@@ -133,25 +133,25 @@ impl State {
             None
         };
 
-        let tenet_grid = Column::with_children(
+        let tenet_column = Column::with_children(
             Self::TENET_COMBO_PARAMETERS
                 .iter()
                 .enumerate()
                 .map(|(index, name)| tenet_box(index, name).into()),
         )
-        .spacing(15)
+        .spacing(10)
         .height(Shrink);
 
         scrollable(
             column![
-                tenet_grid,
+                tenet_column,
                 if let Some(grid) = practice_grid {
                     Element::from(grid)
                 } else {
                     heading("Pick a Metaphysical, Personal, and Ascension tenet").into()
                 }
             ]
-            .spacing(15)
+            .spacing(10)
             .padding(15),
         )
         .into()
