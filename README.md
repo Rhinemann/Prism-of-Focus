@@ -77,4 +77,6 @@ command.
 
 
 ## Future Plans
+Additions considered for future releases:
+- [ ] Custom tenet categories.
 - [ ] Browsable practice database with Instruments, Resonance traits and minimal necessary information.
