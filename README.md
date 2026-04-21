@@ -4,6 +4,12 @@ This is an unofficial companion for [Charles Siegel's](https://www.patreon.com/c
 All tenets are defined in a tenets.json file and read at runtime. Thus tenets.json must be in the same directory as the executable.
 
 
+## Running Example
+![](image/starting.png)
+
+![](image/filled.png)
+
+
 ## Installation
 The program has been compiled for Windows and Linux. Windows requirements is Windows 10. Linux requirement is glibc >= 2.39.
 
