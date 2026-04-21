@@ -10,6 +10,58 @@ All tenets are defined in a tenets.json file and read at runtime. Thus tenets.js
 ![](image/filled.png)
 
 
+## Customizing Tenets
+As the tenet information is stored in tenets.json, you can add additional tenets to existing categories or modify existing tenets.
+
+By changing:
+```json
+{
+    "name": "A Rational Universe",
+    "associated_practices": [
+    "Cybernetics",
+    "Reality Hacking",
+    "Alchemy",
+    "Hypertech",
+    "Craftwork"
+    ],
+    "limited_practices": [
+    "Voudoun",
+    "Crazy Wisdom",
+    "Witchcraft",
+    "Gutter Magick",
+    "Chaos Magick"
+    ]
+}
+```
+
+to:
+
+```json
+{
+    "name": "A Very Rational Universe",
+    "associated_practices": [
+    "Being Annoying",
+    "Cybernetics",
+    "Reality Hacking",
+    "Alchemy",
+    "Hypertech",
+    "Craftwork"
+    ],
+    "limited_practices": [
+    "Voudoun",
+    "Crazy Wisdom",
+    "Witchcraft",
+    "Gutter Magick",
+    "Chaos Magick"
+    ]
+}
+```
+
+We are able to change the tenet without recompiling the app.
+
+![](image/modified_tenet.png)
+
+
 ## Installation
 The program has been compiled for Windows and Linux. Windows requirements is Windows 10. Linux requirement is glibc >= 2.39.
 
