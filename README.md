@@ -82,6 +82,8 @@ We may also add an additional tenet categories by adding an object formatted as 
 
 To the array of tenets in the file.
 
+![](image/custom_group.png)
+
 ## Installation
 The program has been compiled for Windows and Linux. Windows requirements is Windows 10. Linux requirement is glibc >= 2.39.
 
