@@ -3,10 +3,10 @@
 mod focus;
 pub mod styles;
 
-use crate::focus::Tenet;
-use iced::widget::{column, container, grid, pick_list, scrollable, text, Column};
-use iced::{alignment, Function};
-use iced::{color, font, theme, window, Color, Element, Fill, Shrink, Size, Theme};
+use crate::focus::{Tenet, TenetGroup};
+use iced::widget::{Column, column, container, grid, pick_list, scrollable, text};
+use iced::{Color, Element, Fill, Shrink, Size, Theme, color, font, theme, window};
+use iced::{Function, alignment};
 use std::collections::HashSet;
 use std::{fs, process};
 
@@ -32,8 +32,8 @@ pub enum Message {
 struct State {
     associated_practices: HashSet<String>,
     limited_practices: HashSet<String>,
-    tenet_options: [Vec<Tenet>; 7],
-    tenets_chosen: [Option<Tenet>; 7],
+    tenet_options: Vec<TenetGroup>,
+    tenets_chosen: Vec<Option<Tenet>>,
 }
 
 impl State {
@@ -43,7 +43,7 @@ impl State {
             process::exit(1)
         });
 
-        let tenet_options: [Vec<Tenet>; 7] =
+        let tenet_options: Vec<TenetGroup> =
             serde_json::from_str(&tenet_string).unwrap_or_else(|e| {
                 println!("Error parsing file: {e}");
                 process::exit(1)
@@ -52,20 +52,10 @@ impl State {
         Self {
             associated_practices: HashSet::new(),
             limited_practices: HashSet::new(),
-            tenets_chosen: [None, None, None, None, None, None, None],
+            tenets_chosen: Vec::from_iter(std::iter::repeat_n(None, tenet_options.len())),
             tenet_options,
         }
     }
-
-    const TENET_COMBO_PARAMETERS: [&str; 7] = [
-        "Metaphysical",
-        "Personal",
-        "Ascension",
-        "Role",
-        "Epistemology",
-        "Openness",
-        "Afterlife",
-    ];
 
     fn update_practices(&mut self) {
         let combine_practices = |f: fn(&Tenet) -> HashSet<String>| {
@@ -99,13 +89,13 @@ impl State {
 
         let heading = |string| text(string).size(18).center().width(Fill).font(bold_font);
         let centered = |string| container(text(string)).align_x(alignment::Horizontal::Center);
-        let tenet_box = |index: usize, name: &str| {
+        let tenet_box = |index: usize, tenet_group: &TenetGroup| {
             pick_list(
-                self.tenet_options[index].clone(),
+                tenet_group.tenets.clone(),
                 self.tenets_chosen[index].as_ref(),
                 Message::TenetSelected.with(index),
             )
-            .placeholder(format!("Choose {} Tenet", name))
+            .placeholder(format!("Choose {} Tenet", tenet_group.name))
             .on_open(Message::TenetOpen(index))
             .width(Fill)
             .padding([5, 15])
@@ -134,10 +124,10 @@ impl State {
         };
 
         let tenet_column = Column::with_children(
-            Self::TENET_COMBO_PARAMETERS
+            self.tenet_options
                 .iter()
                 .enumerate()
-                .map(|(index, name)| tenet_box(index, name).into()),
+                .map(|(index, tenet_group)| tenet_box(index, tenet_group).into()),
         )
         .spacing(10)
         .height(Shrink);

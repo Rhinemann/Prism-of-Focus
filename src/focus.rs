@@ -1,6 +1,12 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 
+#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug)]
+pub struct TenetGroup {
+    pub name: String,
+    pub tenets: Vec<Tenet>,
+}
+
 #[derive(Serialize, Deserialize, PartialEq, Eq, Debug, Clone)]
 pub struct Tenet {
     pub name: String,

@@ -61,6 +61,26 @@ We are able to change the tenet without recompiling the app.
 
 ![](image/modified_tenet.png)
 
+We may also add an additional tenet categories by adding an object formatted as such:
+
+```json
+{
+  "name": "Example Group Name",
+  "tenets": [
+    {
+      "name": "Example Tenet",
+      "associated_practices": [
+        "Example Practice"
+      ],
+      "limited_practices": [
+        "Example Practice"
+      ]
+    }
+  ]
+}
+```
+
+To the array of tenets in the file.
 
 ## Installation
 The program has been compiled for Windows and Linux. Windows requirements is Windows 10. Linux requirement is glibc >= 2.39.
